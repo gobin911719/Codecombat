@@ -1,0 +1,29 @@
+# If the peasant is damaged, the flowers will shrink!
+
+def summonSoldiers():
+    if hero.gold >= hero.costOf("soldier"):
+        hero.summon("soldier")
+
+# Define the function: commandSoldiers
+def commandSoldiers():
+    army = hero.findByType("soldier")
+    for friend in army:           
+        enemy = friend.findNearestEnemy()
+        if enemy and friend.distanceTo(enemy)<5:            
+            hero.command(friend, "attack", enemy)
+        else:
+            hero.command(friend, "move", peasant.pos)
+# Define the function: pickUpNearestCoin
+
+def pickUpNearestCoin():
+    nearest = hero.findNearest(hero.findItems())
+    if nearest:
+        hero.move(nearest.pos)
+    
+    
+peasant = hero.findByType("peasant")[0]
+
+while True:
+    summonSoldiers()
+    commandSoldiers()
+    pickUpNearestCoin()
