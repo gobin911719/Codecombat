@@ -1,0 +1,23 @@
+# You can use findNearestEnemy() on your soldiers to get their nearest enemy instead of yours
+friends = hero.findFriends()
+for i in range(len(friends)):
+    friend = friends[i]
+    if friend.type == "soldier":
+        hero.command(friend, "move", {"x":friend.pos.x+20,"y":friend.pos.y})
+hero.say("align")
+ 
+hero.say("go")
+num =1 
+while True:
+    for i in range(len(friends)):
+        friend = friends[i]
+        enemy = friend.findNearestEnemy()
+        if enemy:
+            hero.command(friend, "attack", enemy)
+        else:
+            hero.command(friend, "move", {"x":friend.pos.x+5,"y":friend.pos.y})
+    hero.say(num)
+    if num == 1:
+        num=2
+    else:
+        num=1
