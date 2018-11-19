@@ -1,0 +1,81 @@
+# This level is supposed to be VERY hard! You may need a great strategy and or gear to complete it!
+
+# Find and defeat the yeti then gather its essence for the ritual.
+# You might want to gather the coins the yeti leaves behind, you'll need them to summon an army
+# Stand at the summoning stone (red x) to begin summoning
+# Now you just have to survive the undead hoard
+def summonSoldiers():
+    if hero.gold >= hero.costOf("soldier"):
+        hero.summon("soldier")
+
+
+def pickUpNearestCoin():
+    nearest = hero.findNearest(hero.findItems())
+    if nearest:
+        hero.move(nearest.pos)
+
+    
+def commandSoldiers():
+    # 首先找到大部队
+    army = hero.findByType("soldier")
+    #aaa888 定义为是army中的一个常量
+    for aaa888 in army:
+        #aaa888 周围的敌人
+        enemy = aaa888.findNearestEnemy()
+        #如果有敌人，并且敌人距离小于5时攻击：
+        if enemy:            
+            hero.command(aaa888, "attack", enemy)
+        else:
+            hero.command(aaa888, "move", {"x":55,"y":48})
+
+def attack():
+    enemies = hero.findEnemies()
+    enemy = hero.findNearest(enemies)
+    if enemy:
+        if hero.isReady("bash"):
+            hero.bash(enemy)
+        elif hero.canCast('chain-lightning', enemy):
+            hero.cast('chain-lightning', enemy)
+        else:
+            hero.attack(enemy)
+
+def findfurthestenemy():
+    enemies = hero.findEnemies()
+    index = 0
+    target = None
+    maxdistance = 0
+    while index < len(enemies):
+        enemy = enemies[index]
+        distance = hero.distanceTo(enemy)
+        if distance > maxdistance:
+            target = enemy
+            maxdistance = distance
+        index+=1
+    return target
+
+hero.moveXY(56, 23)
+while True:
+    attack()
+    pickUpNearestCoin()
+    if hero.gold > 270:
+        hero.moveXY(19, 40)
+        break
+
+for i in range(1, 20):
+    summonSoldiers()
+
+commandSoldiers()
+
+hero.moveXY(54, 41)
+
+    
+while True:
+    commandSoldiers()
+    furthestenemy = findfurthestenemy()
+    if furthestenemy:
+        if hero.isReady("bash"):
+            hero.bash(furthestenemy)
+        elif hero.canCast('chain-lightning', furthestenemy):
+            hero.cast('chain-lightning', furthestenemy)
+        else:
+            hero.attack(furthestenemy)
