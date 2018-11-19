@@ -62,8 +62,9 @@ while True:
     commandSoldiers()
     furthestenemy = findfurthestenemy()
     if furthestenemy:
-        while furthestenemy.health > 0:
-            if furthestenemy and hero.isReady("devour"):
-                hero.devour(furthestenemy)
-            elif furthestenemy:
-                hero.attack(furthestenemy)
+        if hero.isReady("bash"):
+            hero.bash(furthestenemy)
+        elif hero.canCast('chain-lightning', furthestenemy):
+            hero.cast('chain-lightning', furthestenemy)
+        else:
+            hero.attack(furthestenemy)
