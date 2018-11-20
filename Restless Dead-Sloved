@@ -1,0 +1,50 @@
+hero.moveXY(55, 12)
+
+def first():
+    a = 0
+    while a!=1:
+        enemy = hero.findNearestEnemy()
+        if enemy:
+            while enemy.health>0:
+                hero.attack(enemy)
+        a+=1
+
+def coin():
+    while True:
+        item = hero.findNearestItem()
+        if item :
+            hero.move(item.pos)
+        else:
+            break
+
+def go():
+    while hero.gold >= hero.costOf("soldier"):
+        hero.summon("soldier")
+        friends = hero.findFriends()
+        for j in range(len(friends)):
+            friend = friends[j]
+            hero.command(friend, "move", {"x": 46, "y": 39})
+    
+    
+    
+first()
+coin()
+go()
+hero.moveXY(18, 40)
+hero.moveXY(58, 50)
+while True:
+    friends = hero.findFriends()
+    for j in range(len(friends)):
+        friend = friends[j]
+        enemy = friend.findNearestEnemy()
+        if enemy:
+            hero.command(friend, "attack", enemy)
+    enemya = hero.findNearestEnemy()
+    if enemya:
+        hero.shield()
+        if hero.isReady("stomp") :
+            hero.stomp()
+        if hero.isReady("cleave") :
+            hero.cleave(enemya)
+        else:
+            hero.attack(enemya)
