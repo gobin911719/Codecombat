@@ -1,0 +1,33 @@
+# Stay alive for one minute.
+# If you win, the next time you play will be more difficult and more rewarding!
+# If you lose, you must wait a day before submitting again.
+
+def coin():
+    item = hero.findNearest(hero.findItems())
+    if item:
+        hero.move(item.pos)
+
+def summon():
+    if hero.gold > hero.costOf("soldier"):
+        hero.summon("soldier")
+        
+def command():
+    enemy = hero.findNearestEnemy()
+    friends = hero.findFriends()
+    for friend in friends:
+        if enemy:
+            hero.command(friend, "attack", enemy)
+
+while True:
+    coin()
+    summon()
+    command()
+    enemy = hero.findNearestEnemy()
+    if enemy:
+        hero.attack(enemy)
+        if hero.isReady("bash"):
+            hero.bash(enemy)
+        elif hero.canCast('chain-lightning', enemy):
+            hero.cast('chain-lightning', enemy)
+        else:
+            hero.attack(enemy)
