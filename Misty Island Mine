@@ -36,7 +36,7 @@ while True:
             enough = enoughGoldForDecoy() 
             if enough:
                 # Command a peasant to build a "decoy":
-                hero.command(peasant, "buildXY", "decoy",peasant.pos.x-2, peasant.pos.y)
+                hero.command(peasant, "buildXY", "decoy",peasant.pos.x+5, peasant.pos.y)
                 # Add a continue so the peasant doesn't collect coins when building.
                 continue
             pass
