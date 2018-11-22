@@ -1,0 +1,24 @@
+# Our sleepwalking peasants are returning.
+# But sleeping yetis are also coming.
+# DON'T WAKE THEM UP!
+# Build fences to let peasants through and stop yetis.
+
+
+# Senick's prepared the grid map how to build fences.
+hunter = hero.findNearest(hero.findFriends())
+fenceMap = hunter.getMap()
+
+# This function converts grid into XY coordinates.
+def convertCoor(row, col):
+    return {'x': 34 + col * 4, 'y': 26 + row * 4}
+
+
+# Iterate over fenceMap and build at fence at all 1s.
+for ri, row in enumerate(fenceMap):
+    for rx, col in enumerate(row):
+        if (col == 1):
+            coor = convertCoor(ri, rx)
+            hero.buildXY('fence', coor.x, coor.y)
+
+# Yetis wake up if they smell the hero near. Hide in the village.
+hero.moveXY(22, 15)
