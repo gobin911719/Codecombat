@@ -11,7 +11,7 @@ for x in range(12, 12 + 8 * 6, 8):
         hero.buildXY("fire-trap", x, y)
         pass
     # After each column, it's better to move right to avoid own traps.
-    hero.moveXY(hero.pos.x + 8, hero.pos.y)
+    hero.moveXY(hero.pos.x + 8, hero.pos.y-8)
 
 # Now wait and watch the coming ogres.
 # When they are near (about 20 metres from the hero) blow mines with your hero.
