@@ -1,0 +1,37 @@
+# Practice using modulo to loop over an array
+
+# Choose the mix and order of units you want to summon by populating this array:
+summonTypes = ['soldier', 'archer']
+
+def summonTroops():
+    # Use % to wrap around the summonTypes array based on len(hero.built)
+    #type = summonTypes[???]
+    summonType = summonTypes[len(hero.built) % len(summonTypes)]
+    if hero.gold >= hero.costOf(summonType):
+        hero.summon(summonType)
+        
+def collectCoins():
+    item = hero.findNearestItem()
+    if item:
+        hero.move(item.pos)
+        
+def Attack():
+    enemies = hero.findEnemies()
+    for enemy in enemies:
+        hero.attack(enemy)
+        
+def commandSoldiers():
+    friends = hero.findFriends()
+    for soldier in friends:
+        enemy = hero.findNearestEnemy()
+        if enemy and (soldier.type == "soldier" or  soldier.type == "archer"):
+            hero.command(soldier,"attack",enemy)
+    
+while True:
+    summonTroops()
+    commandSoldiers()
+    enemy = hero.findNearestEnemy()
+    if enemy and hero.distanceTo(enemy)<10:
+        Attack()
+    else:
+        collectCoins()
