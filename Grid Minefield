@@ -18,5 +18,5 @@ for x in range(12, 12 + 8 * 6, 8):
 # Just move at the nearest mine when it's the time.
 while True:
     enemy = hero.findNearestEnemy()
-    if enemy and hero.distanceTo(enemy)<21:
+    if enemy and hero.distanceTo(enemy)<=20:
         hero.moveXY(x, y)
