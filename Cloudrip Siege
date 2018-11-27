@@ -1,0 +1,29 @@
+# Your goal is to keep at least one flower alive for 60 seconds.
+# This is an optional challenge level, intended to be difficult. Be creative with your code!
+# It gets harder (and more lucrative) each time you succeed. If you fail, you must wait a day to resubmit.
+
+summonTypes = ['griffin-rider','peasant','archer','soldier']
+
+def collect():
+    friends = hero.findFriends()
+    for friend in friends:
+        item = hero.findNearestItem()
+        if item and friend.type == "peasant":
+            hero.command(friend, "move", item.pos)
+        enemy = hero.findNearestEnemy()
+        if enemy:
+            if friend.type == "soldier" or friend.type == "archer" or  friend.type == "griffin-rider":
+                hero.command(friend, "attack", enemy)
+
+def summon():
+    type = summonTypes[len(hero.built) % len(summonTypes)]
+    if hero.gold > hero.costOf(type):
+        hero.summon(type)
+
+while True:
+    summon()
+    collect()
+    item = hero.findNearestItem()
+    if item:
+        hero.move(item.pos)
+    enemy = hero.findNearestEnemy()
