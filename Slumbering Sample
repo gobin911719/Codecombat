@@ -1,0 +1,17 @@
+# One last stop before the plan can be set into motion!
+# It's up to you to help Senick get the average size of these yetis.
+
+# Find all the Yetis using 'findByType':
+
+# Implement the averageSize function from scratch:
+def averagesize(targets):
+    sum = 0 
+    len = 0
+    for yeti in targets:
+        if yeti.type == "yeti":
+            sum += yeti.size
+            len +=1
+    return sum/len
+# Say the average size of the yetis:
+enemies = hero.findEnemies()
+hero.say(averagesize(enemies))
