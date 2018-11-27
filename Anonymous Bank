@@ -1,0 +1,32 @@
+# Find the passwords and get the treasure.
+
+# We intercepted a scout with an encoded message.
+encodedMessage = hero.findNearest(hero.findFriends()).message
+# Here we will store passwords.
+passwordArray = []
+# All passwords have 5 letters.All real passwords have 5 letters.
+passwordLength = 5
+
+# Split encodedMessage by using a ";" and save the words in a variable.
+words = encodedMessage.split(";")
+# Iterate over all of the words.
+for word in words:
+    # Trim each word to remove whitespace.
+    wordt = word.trim()
+    # If the length of the cleaned word is 5:
+    if len(wordt) ==5:
+        # Append the cleaned word to passwordArray:
+        passwordArray.append(wordt)
+
+
+# Move to each mark and say the correct password:
+marksPos = [{"x": 12, "y": 14}, {"x": 38, "y": 38},
+            {"x": 42, "y": 16}, {"x": 54, "y": 12}];
+for i in range(4):
+    pos = marksPos[i]
+    hero.moveXY(pos.x, pos.y)
+    password = passwordArray[i]
+    if password:
+        hero.say(password)
+    else:
+        hero.say("qwerty")
